@@ -22,5 +22,78 @@ typedef struct Module{
     Date endDate;
 } Module;
 
+typedef struct Batch{
+    char batch_name[10];
+    int admission;
+} Batch;
+
+typedef struct Venue{
+    char name_type[5];
+    char lec_hall_name[15];
+    char lab_name[15];
+    char location_name[15];
+    int lab_capacity;
+    int lec_hall_capacity;
+} Venue;
+
+typedef struct Faculaty{
+    char faculaty_name[10];
+    int C_prog;
+    int CPP;
+    int Apti;
+    int Os;
+    int Ds;
+} Faculaty;
+
+typedef struct CheckIsEmpty
+{
+    Venue venueCheck;
+    int isFull;
+}CheckIsEmpty;
+
+typedef struct StartBatch{
+    Batch newBatch;
+    Venue venue;
+    Faculaty faculaty[4];
+    Module module[4];
+    Date startDate;
+    Date endDate;
+    Time batchTime;
+} StartBatch;
+typedef struct StartBatch{
+    Batch newBatch;
+    Venue venue;
+    Faculaty faculaty[4];
+    Module module[4];
+    Date startDate;
+    Date endDate;
+    Time batchTime;
+} StartBatch;
+
+void read_moduleData();
+void read_venue_Data();
+void print_venue();
+
+void read_faculty_Data();
+void print_faculty(void);
+
+void add_Batch();
+void read_Batch_data();
+void print_Batch();
+
+void new_Batch_Schedule();
+int datecmp(Date d1,Date d2);
+bool isLeapYear(int year);
+bool isValidDate(Date d);
+
+void read_Batch_Schedule();
+void print_Batch_Schedule(); 
+extern Venue v1[5];
+extern Module m[5]; 
+extern Faculaty f1[7];
+StartBatch prev_startBatch[10];
+
+int get_id();
+void finalSchedule();
 
 #endif
