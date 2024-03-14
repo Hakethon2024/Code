@@ -51,4 +51,49 @@ typedef struct CheckIsEmpty
     int isFull;
 }CheckIsEmpty;
 
+typedef struct StartBatch{
+    Batch newBatch;
+    Venue venue;
+    Faculaty faculaty[4];
+    Module module[4];
+    Date startDate;
+    Date endDate;
+    Time batchTime;
+} StartBatch;
+typedef struct StartBatch{
+    Batch newBatch;
+    Venue venue;
+    Faculaty faculaty[4];
+    Module module[4];
+    Date startDate;
+    Date endDate;
+    Time batchTime;
+} StartBatch;
+
+void read_moduleData();
+void read_venue_Data();
+void print_venue();
+
+void read_faculty_Data();
+void print_faculty(void);
+
+void add_Batch();
+void read_Batch_data();
+void print_Batch();
+
+void new_Batch_Schedule();
+int datecmp(Date d1,Date d2);
+bool isLeapYear(int year);
+bool isValidDate(Date d);
+
+void read_Batch_Schedule();
+void print_Batch_Schedule(); 
+extern Venue v1[5];
+extern Module m[5]; 
+extern Faculaty f1[7];
+StartBatch prev_startBatch[10];
+
+int get_id();
+void finalSchedule();
+
 #endif
