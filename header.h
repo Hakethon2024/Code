@@ -22,5 +22,21 @@ typedef struct Module{
     Date endDate;
 } Module;
 
+typedef struct Batch{
+    char batch_name[10];
+    int admission;
+} Batch;
+
+typedef struct Venue{
+    char name_type[5];
+    char lec_hall_name[15];
+    char lab_name[15];
+    char location_name[15];
+    int lab_capacity;
+    int lec_hall_capacity;
+} Venue;
+
+
+
 
 #endif
