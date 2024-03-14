@@ -34,6 +34,65 @@ void read_moduleData()
 		fclose(fp);
 }
 
+void read_faculty_Data()
+{
+    FILE *fp = fopen("factulaty.csv", "r");
+    if (!fp) {
+        // Error in file opening
+        printf("Can't open file\n");
+        exit(1);
+    }
+    
+    char buffer[256]; // Buffer size increased
+    for (int i = 0; i < 7; i++) {
+        if (fgets(buffer, sizeof(buffer), fp) != NULL) {
+            // Using strtok to tokenize the buffer
+            char *p = strtok(buffer, ",");
+            strcpy(f1[i].faculaty_name, p);
+            
+            // Initializing flags to 0
+            f1[i].C_prog = 0;
+            f1[i].Ds = 0;
+            f1[i].CPP = 0;
+            f1[i].Os = 0;
+            f1[i].Apti = 0;
+
+            while (p != NULL) {
+                // Check each token for course keywords
+                if (strstr(p, "c-prog") != NULL) {
+                    f1[i].C_prog = 1;
+                } else if (strstr(p, "data-stuct") != NULL) {
+                    f1[i].Ds = 1;
+                } else if (strstr(p, "cpp") != NULL) {
+                    f1[i].CPP = 1;
+                } else if (strstr(p, "oprs") != NULL) {
+                    f1[i].Os = 1;
+                } else if (strstr(p, "apti") != NULL) {
+                    f1[i].Apti = 1;
+                }
+                p = strtok(NULL, ",");
+            }
+        }
+    }
+    fclose(fp);
+    // print_faculty();
+}
+
+ void print_faculty(void) {
+    printf("Name\t\tC-prog\tDS\tCPP\tOS\tApti\n");
+    for (int i = 0; i < 7; i++) {
+        printf("%s\t%d\t%d\t%d\t%d\t%d\n", f1[i].faculaty_name, f1[i].C_prog, f1[i].Ds, f1[i].CPP, f1[i].Os, f1[i].Apti);
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 
