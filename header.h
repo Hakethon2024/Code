@@ -36,7 +36,19 @@ typedef struct Venue{
     int lec_hall_capacity;
 } Venue;
 
+typedef struct Faculaty{
+    char faculaty_name[10];
+    int C_prog;
+    int CPP;
+    int Apti;
+    int Os;
+    int Ds;
+} Faculaty;
 
-
+typedef struct CheckIsEmpty
+{
+    Venue venueCheck;
+    int isFull;
+}CheckIsEmpty;
 
 #endif
