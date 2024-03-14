@@ -51,15 +51,7 @@ typedef struct CheckIsEmpty
     int isFull;
 }CheckIsEmpty;
 
-typedef struct StartBatch{
-    Batch newBatch;
-    Venue venue;
-    Faculaty faculaty[4];
-    Module module[4];
-    Date startDate;
-    Date endDate;
-    Time batchTime;
-} StartBatch;
+
 typedef struct StartBatch{
     Batch newBatch;
     Venue venue;
