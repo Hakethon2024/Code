@@ -175,7 +175,7 @@ Date next_date(Date *sd)
                 break;
             case 5:
                 //printf("Friday\n");
-                sd->dd += 2;
+                sd->dd += 3;
                  if (sd->dd > 31 || (sd->dd > 30 && (sd->mm == 4 || sd->mm == 6 || sd->mm == 9 || sd->mm == 11)) || (sd->dd > 29 && sd->mm == 2) || (sd->dd > 28 && sd->mm == 2 && !(sd->yy % 4 == 0 && (sd->yy % 100 != 0 || sd->yy % 400 == 0)))) 
                 {
                     sd->dd = 1; // Reset day to 1
