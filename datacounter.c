@@ -1,31 +1,19 @@
 #include"header.h"
 
-int get_id()
+int count = 0;
+void read_line_count()
 {
-    FILE *f1;
-    int cnt = 0;
-    StartBatch b1;
-    f1 = fopen("scheduleBatch.csv", "rb");
-    if(f1 == NULL)
+    FILE* fp = fopen("scheduleBatch.csv", "r");
+    if (!fp) {
+		// Error in file opening
+		printf("Can't open file\n");
+		exit(0);
+	}
+    char buffer[100];
+    while (fgets(buffer,100,fp)!=NULL)
     {
-        printf("Error- File can't Open \n");
-        exit(1);
-    }
-    
-        //printf("Books Read From File : \n");
-        while((fread(&b1, sizeof(StartBatch), 1, f1)) != 0 )
-        {
-            cnt++;
-            //printf("----------------------------\n") ;       
-        }
-    
-    fclose (f1);
-    if(cnt == 0)
-    {
-        return 1;
-    }
-    else
-    {
-        return (cnt + 1);
-    }
+        count++;
+    }   
+	fclose(fp);
+    printf("Total Scheduled Batches count :: %d\n",count);
 }
