@@ -186,73 +186,84 @@ void read_schdule(int k)
       {
         case 0:printf("Exit Menu..\n");
                break;
-        case 1:printf("Weekly report \n");
-               printf("Enter Start Date : ");
-               scanf("%d%d%d",&sd.dd,&sd.mm,&sd.yy);
-               printf("Enter End Date : ");
-               scanf("%d%d%d",&ed.dd,&ed.mm,&ed.yy); 
-               printf("---------------------------------------------------------\n");
-               printf("Date     Lec_Time    Module       Faculty     Lec_Venue  \n");
-               printf("---------------------------------------------------------\n");
-               i = 0;
-               while(i < k)
-               {
-                   if(arr[i].date.dd == sd.dd)
-                   {
-                        if(arr[i].date.mm== sd.mm)
-                        {
-                            if(arr[i].date.yy== sd.yy)
-                            {
-                                break;
-                            }
-                        }
-                   }
-                   i++;
-               }
-               diff = date(sd,ed);
-               p=0;
-               while(p <= diff)
-               {  
-                    printf("%02d/%d/%d  %d:00     %-10s    %-9s   %-10s \n", arr[i].date.dd, arr[i].date.mm, arr[i].date.yy, arr[i].lec_time, arr[i].module, arr[i].fac_name, arr[i].lec_venue);
-                    p++;
-                    i++;
-               }
-               printf("---------------------------------------------------------\n");                
-               break;
-        case 2:printf("Monthly report \n");
-               printf("Enter Month To Get Report : ");
-               scanf("%d",&p);
-               printf("---------------------------------------------------------\n");
-               printf("Date     Lec_Time    Module       Faculty     Lec_Venue  \n");
-               printf("---------------------------------------------------------\n");
-               i = 0;
-               x = 0;
-               while(i <= 31)
-               {
-                    if(arr[i].date.mm == p)
-                    {
-                        x++;
-                        printf("%02d/%d/%d  %d:00     %-10s    %-9s   %-10s \n", arr[i].date.dd, arr[i].date.mm, arr[i].date.yy, arr[i].lec_time, arr[i].module, arr[i].fac_name, arr[i].lec_venue);
-                    }
-                    
-                    if(arr[i].date.dd > 31)
-                        break;
-                    i++;
-               }
-               if(x == 0)
-                    printf("Sorry No Record Found...\n");
-                printf("---------------------------------------------------------\n");                
-                            
-               break;
-        case 3:printf("All report \n");
-               printf("---------------------------------------------------------\n");
-               printf("Date     Lec_Time    Module       Faculty     Lec_Venue  \n");
-               printf("---------------------------------------------------------\n");
-               for( p = 0 ; p < k ; p++)
-               {
-                    printf("%02d/%d/%d  %d:00     %-10s    %-9s   %-10s \n", arr[p].date.dd, arr[p].date.mm, arr[p].date.yy, arr[p].lec_time, arr[p].module, arr[p].fac_name, arr[p].lec_venue);
-               }
-               break;
+        case 1:
+    printf("Weekly report\n");
+    printf("Enter Start Date (DD MM YYYY): ");
+    scanf("%d %d %d", &sd.dd, &sd.mm, &sd.yy);
+    printf("Enter End Date (DD MM YYYY): ");
+    scanf("%d %d %d", &ed.dd, &ed.mm, &ed.yy);
+    printf("-------------------------------------------------------------------------\n");
+    printf("| Date       | Lec_Start | Lec_End | Module     | Faculty   | Lec_Venue  |\n");
+    printf("-------------------------------------------------------------------------\n");
+    
+    i = 0;
+    while (i < k) {
+        if (arr[i].date.dd == sd.dd && arr[i].date.mm == sd.mm && arr[i].date.yy == sd.yy) {
+            break;
+        }
+        i++;
+    }
+    
+    diff = date(sd, ed);
+    p = 0;
+    while (p < diff) {
+        int dayOfWeek = calculateDayOfWeek(arr[i].date.dd, arr[i].date.mm, arr[i].date.yy);
+        if (dayOfWeek != 0 && dayOfWeek != 6) { // Exclude Saturday (0) and Sunday (6)
+            int lectureEndTime = arr[i].lec_time + ((strcmp(arr[i].module, "Apptitude") == 0) ? 4 : 2); // Assuming aptitude lectures are 4 hours long
+            printf("| %02d/%02d/%d | %02d:00    | %02d:00   | %-10s | %-9s | %-10s |\n",
+                   arr[i].date.dd, arr[i].date.mm, arr[i].date.yy,
+                   arr[i].lec_time, lectureEndTime,
+                   arr[i].module, arr[i].fac_name, arr[i].lec_venue);
+            p++;
+        }
+        // Move to the next day
+        i++;
+    }
+    
+    printf("-------------------------------------------------------------------------\n");
+    printf("Note: Saturday and Sunday are considered as weekly offs.\n");
+    break;
+
+case 2:
+    printf("Monthly report\n");
+    printf("Enter Month To Get Report: ");
+    scanf("%d", &p);
+    printf("---------------------------------------------------------------------------------------\n");
+    printf("| Date       | Lec_Start | Lec_End | Module     | Faculty     | Lec_Venue  |\n");
+    printf("---------------------------------------------------------------------------------------\n");
+    x = 0;
+    for (i = 0; i < k; i++)
+     {
+        if (arr[i].date.mm == p) {
+            x++;
+            int lec_time = strcmp(arr[p].module, "Apptitude") == 0 ? arr[p].lec_time + 4 : arr[p].lec_time + 2;
+            printf("| %02d/%02d/%d | %02d:00    | %02d:00   | %-10s | %-11s | %-10s |\n",
+                   arr[i].date.dd, arr[i].date.mm, arr[i].date.yy,
+                   arr[i].lec_time, arr[i].lec_time + 2, // Assuming lectures are 2 hours long
+                   arr[i].module, arr[i].fac_name, arr[i].lec_venue);
+        }
+    }
+    if (x == 0)
+        printf("Sorry, No Records Found for the specified month...\n");
+    printf("---------------------------------------------------------------------------------------\n");
+    break;
+
+
+ case 3:
+    printf("All report\n");
+    printf("--------------------------------------------------------------------------\n");
+    printf("| Date       | Lec_Start | Lec_End | Module     | Faculty   | Lec_Venue  |\n");
+    printf("--------------------------------------------------------------------------\n");
+    for (p = 0; p < k; p++) {
+        int lec_end_time = strcmp(arr[p].module, "Apptitude") == 0 ? arr[p].lec_time + 4 : arr[p].lec_time + 2; // 4 hours for Aptitude module, 2 hours for others
+        printf("| %02d/%02d/%d | %02d:00    | %02d:00   | %-10s | %-9s | %-10s |\n",
+               arr[p].date.dd, arr[p].date.mm, arr[p].date.yy,
+               arr[p].lec_time, lec_end_time,
+               arr[p].module, arr[p].fac_name,arr[p].lec_venue);
+    }
+    printf("--------------------------------------------------------------------------\n");
+    break;
+
         
         default:printf("Invalid Choice...\n");
             break;
