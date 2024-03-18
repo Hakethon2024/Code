@@ -45,7 +45,7 @@ int main() {
                 break;
             case 2:
                 printf("\n See All Batches\n");
-                
+                read_Batch_data();
                 print_Batch();
                 break;
             case 3:
