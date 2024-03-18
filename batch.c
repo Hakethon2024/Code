@@ -80,16 +80,19 @@ void read_Batch_data()
 	fclose(fp);
      
  }
-void print_Batch() {
-    printf("BatchName      |        Capacity\n");
+void print_Batch() 
+{
+    printf("-------------------------------------------------\n");
+    printf("BatchName      |        Capacity    |\n");
     for(int i=0; i<10; i++) {
         if (b[i].batch_name == NULL || b[i].admission == 0)
         {
+            printf("-------------------------------------------------\n");
             return;
-        }
-        
-        printf("%s    | %d\n",b[i].batch_name,b[i].admission);
+        }    
+        printf("%-15s| %11d        |\n",b[i].batch_name,b[i].admission);
     }
+    
  }
 
 int compare(char a[],char b[])  
