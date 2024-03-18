@@ -53,6 +53,66 @@ void add_Batch() {
 	fclose(fp);
 }
 
+void read_Batch_data()
+{
+    printf("******\n");
+    FILE* fp = fopen("batch.csv", "r");
+    if (!fp) 
+    {
+		// Error in file opening
+		printf("Can't open file\n");
+		exit(0);
+	}
+    char buffer[10];
+        for (int i = 0; i < 10; i++)
+        {
+            printf("******\n");
+           fgets(buffer,10,fp);
+           char *p = strtok(buffer,",");
+           if(strstr(p,"PM") || strstr(p,"pm")) {
+                strcpy(b[i].batch_name,p);
+            }
+            if(strstr(p,"PH") || strstr(p,"ph")) {
+                strcpy(b[i].batch_name,p);
+            }
+            p = strtok(NULL,",");
+            b[i].admission=atoi(p);
+            if(b[i].admission == 0)
+                break;
+        }
+	fclose(fp);
+     
+ }
+void print_Batch() {
+    printf("BatchName      |        Capacity\n");
+    for(int i=0; i<10; i++) {
+        if (b[i].batch_name == NULL || b[i].admission == 0)
+        {
+            return;
+        }
+        
+        printf("%s    | %d\n",b[i].batch_name,b[i].admission);
+    }
+ }
+
+int compare(char a[],char b[])  
+{  
+    int flag=0,i=0;  // integer variables declaration  
+    while(a[i]!='\0' &&b[i]!='\0')  // while loop  
+    {  
+       if(a[i]!=b[i])  
+       {  
+           flag=1;  
+           break;  
+       }  
+       i++;  
+    }  
+    if(flag==0)  
+    return 0;  
+    else  
+    return 1;  
+} 
+
 void new_Batch_Schedule() {
     read_Batch_data();
     read_venue_Data();
