@@ -4,7 +4,54 @@ extern StartBatch prev_startBatch[10];
 // int count =6;
 extern int count;
 StartBatch startBatch;
+void add_Batch() {
+    Batch batch;
 
+    FILE* fp = fopen("batch.csv", "a+");
+    if (!fp) 
+    {
+		// Error in file opening
+		printf("Can't open file\n");
+		exit(0);
+	}
+    printf("enter batch name:: \n");
+    scanf("%s",&batch.batch_name);
+    for (int i = 0; i < 10; i++)
+    {
+        if (!(strcmp(b[i].batch_name, batch.batch_name))) {
+            printf("%s is already present\n",batch.batch_name);
+            printf("Enter Other name for new batch\n");
+            return;
+        }
+    }
+
+        if (batch.batch_name[0] == 'p' || batch.batch_name[0] == 'P') {
+            batch.batch_name[0]='P';
+            // printf("batch.batch_name[%d] %c :: \n",0,batch.batch_name[0]);
+        } 
+        if (batch.batch_name[1] == 'm' || batch.batch_name[1] == 'M') {
+            batch.batch_name[1]='M';
+            // printf("batch.batch_name[%d] %c :: \n",1,batch.batch_name[1]);
+        }
+        if (batch.batch_name[1] == 'h' || batch.batch_name[1] == 'H') {
+            batch.batch_name[1]='H';
+            // printf("batch.batch_name[%d] %c :: \n",1,batch.batch_name[1]);
+        }
+        if (batch.batch_name[0] != 'P') {
+            printf("Batch First Latter Must be 'P'\n");
+            return;
+        }
+        if (batch.batch_name[1]!='M' && batch.batch_name[1]!='H') {
+            printf("Batch Second Latter Must be 'M' or 'H'\n");
+            return;
+        }
+    printf("enter batch admission Count:: \n");
+    scanf("%d",&batch.admission);
+    // Saving data in file
+	fprintf(fp, "%s, %d\n", batch.batch_name,batch.admission);
+	printf("\nNew Batch added to record\n");
+	fclose(fp);
+}
 
 void new_Batch_Schedule() {
     read_Batch_data();
