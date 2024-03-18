@@ -52,10 +52,8 @@ void add_Batch() {
 	printf("\nNew Batch added to record\n");
 	fclose(fp);
 }
-
 void read_Batch_data()
 {
-    printf("******\n");
     FILE* fp = fopen("batch.csv", "r");
     if (!fp) 
     {
@@ -66,7 +64,6 @@ void read_Batch_data()
     char buffer[10];
         for (int i = 0; i < 10; i++)
         {
-            printf("******\n");
            fgets(buffer,10,fp);
            char *p = strtok(buffer,",");
            if(strstr(p,"PM") || strstr(p,"pm")) {
@@ -112,6 +109,7 @@ int compare(char a[],char b[])
     else  
     return 1;  
 } 
+
 
 void new_Batch_Schedule() {
     read_Batch_data();
