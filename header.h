@@ -45,13 +45,6 @@ typedef struct Faculaty{
     int Ds;
 } Faculaty;
 
-typedef struct CheckIsEmpty
-{
-    Venue venueCheck;
-    int isFull;
-}CheckIsEmpty;
-
-
 typedef struct StartBatch{
     Batch newBatch;
     Venue venue;
@@ -61,6 +54,13 @@ typedef struct StartBatch{
     Date endDate;
     Time batchTime;
 } StartBatch;
+
+typedef struct CheckIsEmpty
+{
+    Venue venueCheck;
+    int isFull;
+}CheckIsEmpty;
+
 
 void read_moduleData();
 void read_venue_Data();
@@ -85,7 +85,32 @@ extern Module m[5];
 extern Faculaty f1[7];
 StartBatch prev_startBatch[10];
 
-int get_id();
+void read_line_count();
+// void finalSchedule();
 void finalSchedule();
+
+
+void print_weekly_report();
+int validate_name(char *batch);
+
+int date( Date sd , Date ed) ;
+int calculateDayOfWeek(int day, int month, int year);
+
+typedef struct fin
+{
+    Date date;
+
+    // char day[12];
+    char fac_name[20];
+    int lec_time;
+    int lab_time;
+    char module[18];
+    char lec_venue[12];
+    //char 
+}final;
+
+Date next_date(Date *sd);
+void write_schdule(final arr[], int k);
+void read_schdule(int k);
 
 #endif
